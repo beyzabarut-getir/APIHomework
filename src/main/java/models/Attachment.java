@@ -11,7 +11,7 @@ public class Attachment {
         String html = "Url= " + url + "\n\n" +
                 "request header=" +((RequestSpecificationImpl) httpRequest).getHeaders() + "\n\n" +
                 "request body=" +((RequestSpecificationImpl) httpRequest).getBody() + "\n\n" +
-                "request body=" + response.getBody().asString();
+                "response body=" + response.getBody().asString();
         Allure.addAttachment("request detail", html);
         return html;
     }
