@@ -15,7 +15,7 @@ import java.util.Map;
 import static io.restassured.RestAssured.*;
 
 
-public class SampleTest {
+public class CreateBook {
 
     public String token;
     public Integer bookingid;
@@ -63,60 +63,6 @@ public class SampleTest {
         System.out.println(bookingid);
     }
 
-
-   @Test
-    public void getBook(){
-       RestAssured.baseURI = "https://restful-booker.herokuapp.com";
-       String response = given().log().all()
-               .header("Content-Type", "application/json")
-               .pathParam("id", 25)
-               .when().get("/booking/{id}")
-               .then().assertThat().log().all().statusCode(200)
-               .extract().response().asString();
-
-       System.out.println(response);
-
-   }
-
-    @Test
-    public void updateBook(){
-        RestAssured.baseURI = "https://restful-booker.herokuapp.com";
-        String response = given().log().all()
-                .header("Content-Type", "application/json")
-                .pathParam("id", 25)
-                .cookie("token", ("\""+token+"\""))
-                .body("    {\n" +
-                        "        \"firstname\" : \"BB\",\n" +
-                        "            \"lastname\" : \"Brown\",\n" +
-                        "            \"totalprice\" : 120,\n" +
-                        "            \"depositpaid\" : true,\n" +
-                        "            \"bookingdates\" : {\n" +
-                        "        \"checkin\" : \"2018-01-01\",\n" +
-                        "                \"checkout\" : \"2019-01-01\"\n" +
-                        "    },\n" +
-                        "        \"additionalneeds\" : \"Breakfast\"\n" +
-                        "    }")
-                .when().put("/booking/{id}")
-                .then().assertThat().log().all().statusCode(200)
-                .extract().response().asString();
-        System.out.println(response);
-    }
-
-
-
-    @Test
-    public void deleteBook(){
-        RestAssured.baseURI = "https://restful-booker.herokuapp.com";
-
-        String response = given().log().all()
-                .header("Content-Type", "application/json")
-                .cookie("token", ("\""+token+"\""))
-                .when().delete("/booking/22")
-                .then().assertThat().log().all().statusCode(201)
-                .extract().response().asString();
-        System.out.println(response);
-    }
-
     public String attachment(RequestSpecification httpRequest, String url, Response response){
         String html = "Url= " + url + "\n\n" +
                 "request header=" +((RequestSpecificationImpl) httpRequest).getHeaders() + "\n\n" +
@@ -125,7 +71,4 @@ public class SampleTest {
         Allure.addAttachment("request detail", html);
         return html;
     }
-
-
-
 }
