@@ -1,3 +1,5 @@
+package endpoints;
+
 import com.google.gson.Gson;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
